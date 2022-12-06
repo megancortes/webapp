@@ -1,0 +1,27 @@
+---
+- name: "Installation Apache avec Docker"
+  hosts: prod
+  become: true
+  vars:
+    ansible_sudo_pass: admin
+
+  pre_tasks:
+    - name: "Telechargement de python+pip"
+      get_url:
+        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+        dest: /tmp/get-pip.py
+
+    - name: "Installation de python+pip"
+      command: python2.7 /tmp/get-pip.py
+
+    - name: "Installation librairie docker python"
+      pip: name=docker-py
+
+  tasks:
+  - name : "Creation du conteneur Apache" 
+    docker_container:
+      name: webapp
+      image: httpd
+      ports:
+        - "80:80"
+
