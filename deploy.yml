@@ -24,4 +24,15 @@
       image: httpd
       ports:
         - "80:80"
+  
+  - name: "Installation des packages git et wget"
+    yum:
+      name: "{{item}}"
+    state: present
+
+      loop:
+        - git
+        - wget
+      when: ansible_distribution == "CentOS"
+
 
