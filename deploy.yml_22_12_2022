@@ -4,8 +4,7 @@
   become: true
   vars:
     ansible_sudo_pass: admin
-  vars_files:
-    - files/secrets/credentials.yml
+
   pre_tasks:
     - name: "Telechargement de python+pip"
       get_url:
